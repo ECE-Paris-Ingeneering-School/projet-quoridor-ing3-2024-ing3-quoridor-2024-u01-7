@@ -50,9 +50,9 @@ int quit_game(Game *game) {
     scanf(" %c", &save_choice);
 
     if (save_choice == 'y' || save_choice == 'Y') {
-        save_game(game);  // Sauvegarde de la partie
+        save_game(game);  
     }
 
     printf("Retour au menu principal.\n");
-    return 1;  // Retourne 1 pour indiquer que la partie est terminée
+    return 1;  
 }
