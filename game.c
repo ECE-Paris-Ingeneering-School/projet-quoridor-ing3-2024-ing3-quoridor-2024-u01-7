@@ -29,3 +29,8 @@ void init_game(Game *game) {
 int is_valid_move(Game *game, int x, int y) {
     return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE && game->board[x][y] == '.';
 }
+
+int is_valid_barrier_placement(Game *game, int row, int col) {
+    if (row < 0 || row >= BOARD_SIZE || col < 0 || col >= BOARD_SIZE) {
+        return 0; 
+    }
