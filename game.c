@@ -70,3 +70,20 @@ void place_barrier_with_click(Game *game, int player_index) {
         }
     }
 }
+
+void start_game(Game *game) {
+    int running = 1;
+    int current_player = 0;
+
+    while (running) {
+        display_board(game);  // Afficher le plateau
+
+        printf("\nTour de %s :\n", game->players[current_player].name);
+        printf("Choisissez une action :\n");
+        printf("1. Déplacer le pion\n");
+        printf("2. Placer une barrière\n");
+        printf("3. Quitter le jeu\n");
+        printf("Votre choix : ");
+
+        int choice;
+        scanf("%d", &choice);
