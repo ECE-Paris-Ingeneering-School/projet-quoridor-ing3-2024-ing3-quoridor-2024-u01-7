@@ -20,3 +20,8 @@ void setup_board(char board[BOARD_SIZE][BOARD_SIZE]) {
     }
     
 }
+
+void init_game(Game *game) {
+    setup_board(game->board); 
+    setup_players(game->players, &game->num_players, game->board); 
+}
