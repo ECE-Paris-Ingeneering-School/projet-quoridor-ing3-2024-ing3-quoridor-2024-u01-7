@@ -28,3 +28,9 @@ void display_board(Game *game) {
         printf("Joueur %d (%s): Barrieres: %d, %s\n", i + 1, game->players[i].name, game->players[i].barriers, game->players[i].is_human ? "Humain" : "IA");
     }
 }
+
+int getMouseClickPosition(int *row, int *col) {
+    HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+    DWORD prev_mode;
+    GetConsoleMode(hInput, &prev_mode);
+    SetConsoleMode(hInput, prev_mode | ENABLE_EXTENDED_FLAGS | ENABLE_MOUSE_INPUT);
