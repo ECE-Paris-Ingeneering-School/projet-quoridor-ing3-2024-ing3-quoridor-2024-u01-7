@@ -87,3 +87,23 @@ void start_game(Game *game) {
 
         int choice;
         scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                move_pawn_with_click(game, current_player);
+                break;
+            case 2:
+                place_barrier_with_click(game, current_player);
+                break;
+            case 3:
+                running = !quit_game(game);
+                break;
+            default:
+                printf("Option invalide, veuillez réessayer.\n");
+        }
+
+        if (choice == 1 || choice == 2) {
+            current_player = (current_player + 1) % game->num_players;
+        }
+    }
+}
