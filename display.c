@@ -22,3 +22,9 @@ void display_board(Game *game) {
         }
         printf("\n");
     }
+
+    printf("\nRecapitulatif des joueurs:\n");
+    for (int i = 0; i < game->num_players; i++) {
+        printf("Joueur %d (%s): Barrieres: %d, %s\n", i + 1, game->players[i].name, game->players[i].barriers, game->players[i].is_human ? "Humain" : "IA");
+    }
+}
