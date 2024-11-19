@@ -15,8 +15,8 @@ void gotoligcol(int lig, int col) {
 void setup_board(char board[BOARD_SIZE][BOARD_SIZE]) {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            board[i][j] = '.';  // Utiliser '.' pour représenter une case vide
+            board[i][j] = '.';  
         }
     }
-    // Optionnel : Position initiale des pions des joueurs
+    
 }
