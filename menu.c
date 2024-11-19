@@ -19,3 +19,27 @@ void main_menu(Game *game) {
         scanf("%d", &choice);
 
     }
+
+switch (choice) {
+            case 1:
+                init_game(game);
+                return;
+            case 2:
+                if (!load_game(game)) {
+                    system("pause");
+                }
+                return;
+            case 3:
+            case 4:
+                printf("Option non disponible.\n");
+                system("pause");
+                break;
+            case 5:
+                printf("Quitter le jeu.\n");
+                exit(0);
+            default:
+                printf("Option invalide, veuillez reessayer.\n");
+                system("pause");
+        }
+    } while (choice != 1 && choice != 2);
+}
