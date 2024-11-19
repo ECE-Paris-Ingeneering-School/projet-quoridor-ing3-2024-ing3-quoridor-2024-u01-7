@@ -34,3 +34,21 @@ int getMouseClickPosition(int *row, int *col) {
     DWORD prev_mode;
     GetConsoleMode(hInput, &prev_mode);
     SetConsoleMode(hInput, prev_mode | ENABLE_EXTENDED_FLAGS | ENABLE_MOUSE_INPUT);
+
+    INPUT_RECORD input_record;
+    DWORD events;
+    while (1) {
+        ReadConsoleInput(hInput, &input_record, 1, &events);
+        if (input_record.EventType == MOUSE_EVENT) {
+            MOUSE_EVENT_RECORD mer = input_record.Event.MouseEvent;
+            if (mer.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
+                *row = mer.dwMousePosition.Y;
+                *col = mer.dwMousePosition.X;
+                SetConsoleMode(hInput, prev_mode);  
+                return 1;
+            }
+        }
+    }
+    SetConsoleMode(hInput, prev_mode);  
+    return 0;
+}
