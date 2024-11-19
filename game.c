@@ -25,3 +25,7 @@ void init_game(Game *game) {
     setup_board(game->board); 
     setup_players(game->players, &game->num_players, game->board); 
 }
+
+int is_valid_move(Game *game, int x, int y) {
+    return x >= 0 && x < BOARD_SIZE && y >= 0 && y < BOARD_SIZE && game->board[x][y] == '.';
+}
