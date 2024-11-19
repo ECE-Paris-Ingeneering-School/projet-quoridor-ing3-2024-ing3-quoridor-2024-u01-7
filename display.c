@@ -14,3 +14,11 @@ void display_colored_token(char token, int color) {
     set_text_color(15); 
 }
 
+void display_board(Game *game) {
+    printf("\nPlateau de jeu:\n");
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            printf("%c ", game->board[i][j]);
+        }
+        printf("\n");
+    }
