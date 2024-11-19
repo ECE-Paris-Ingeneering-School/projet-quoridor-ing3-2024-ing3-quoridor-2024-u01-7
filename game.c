@@ -56,3 +56,17 @@ void move_pawn_with_click(Game *game, int player_index) {
         }
     }
 }
+
+void place_barrier_with_click(Game *game, int player_index) {
+    int row, col;
+    printf("Cliquez sur la grille pour placer une barrière pour %s.\n", game->players[player_index].name);
+
+    if (getMouseClickPosition(&row, &col)) {
+        if (is_valid_barrier_placement(game, row, col)) {
+            game->board[row][col] = '|';  
+            display_board(game);  
+        } else {
+            printf("Position de barrière invalide ! Veuillez réessayer.\n");
+        }
+    }
+}
