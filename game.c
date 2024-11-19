@@ -34,3 +34,7 @@ int is_valid_barrier_placement(Game *game, int row, int col) {
     if (row < 0 || row >= BOARD_SIZE || col < 0 || col >= BOARD_SIZE) {
         return 0; 
     }
+
+    if (game->board[row][col] != '.') {
+        return 0; 
+    }
