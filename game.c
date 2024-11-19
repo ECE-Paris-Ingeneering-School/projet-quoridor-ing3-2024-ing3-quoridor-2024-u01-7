@@ -44,3 +44,15 @@ int is_valid_barrier_placement(Game *game, int row, int col) {
 void move_pawn_with_click(Game *game, int player_index) {
     int row, col;
     printf("Cliquez sur la grille pour déplacer le pion de %s.\n", game->players[player_index].name);
+    if (getMouseClickPosition(&row, &col)) {
+        if (is_valid_move(game, row, col)) {
+            game->board[game->players[player_index].x][game->players[player_index].y] = '.';
+            game->players[player_index].x = row;
+            game->players[player_index].y = col;
+            game->board[row][col] = game->players[player_index].symbol;
+            display_board(game);  
+        } else {
+            printf("Mouvement invalide ! Veuillez réessayer.\n");
+        }
+    }
+}
