@@ -38,3 +38,5 @@ int is_valid_barrier_placement(Game *game, int row, int col) {
     if (game->board[row][col] != '.') {
         return 0; 
     }
+    return 1; 
+}
