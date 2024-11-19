@@ -40,3 +40,7 @@ int is_valid_barrier_placement(Game *game, int row, int col) {
     }
     return 1; 
 }
+
+void move_pawn_with_click(Game *game, int player_index) {
+    int row, col;
+    printf("Cliquez sur la grille pour déplacer le pion de %s.\n", game->players[player_index].name);
