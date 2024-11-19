@@ -43,3 +43,16 @@ switch (choice) {
         }
     } while (choice != 1 && choice != 2);
 }
+
+int quit_game(Game *game) {
+    char save_choice;
+    printf("Voulez-vous sauvegarder la partie avant de quitter ? (y/n) : ");
+    scanf(" %c", &save_choice);
+
+    if (save_choice == 'y' || save_choice == 'Y') {
+        save_game(game);  // Sauvegarde de la partie
+    }
+
+    printf("Retour au menu principal.\n");
+    return 1;  // Retourne 1 pour indiquer que la partie est terminée
+}
