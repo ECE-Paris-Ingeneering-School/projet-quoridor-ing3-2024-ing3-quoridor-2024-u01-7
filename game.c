@@ -76,7 +76,7 @@ void start_game(Game *game) {
     int current_player = 0;
 
     while (running) {
-        display_board(game);  // Afficher le plateau
+        display_board(game);  
 
         printf("\nTour de %s :\n", game->players[current_player].name);
         printf("Choisissez une action :\n");
