@@ -17,6 +17,6 @@ void setup_board(char board[BOARD_SIZE][BOARD_SIZE]);
 void setup_players(Player players[], int *num_players, char board[BOARD_SIZE][BOARD_SIZE]);
 void init_game(Game *game);
 void start_game(Game *game);
-int quit_game(Game *game);  // Ajoutez ceci si absent
+int quit_game(Game *game);  
 
 #endif
