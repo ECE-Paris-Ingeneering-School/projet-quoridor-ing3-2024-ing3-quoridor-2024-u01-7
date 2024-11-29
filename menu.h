@@ -1,8 +1,10 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include "game.h"
+#include "structures.h"
 
-void main_menu(Game *game);
+void afficherMenu();
+void afficherAide();
+void afficherScores();
 
 #endif
