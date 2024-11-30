@@ -9,10 +9,10 @@ void sauvegarderPartie(const char *nomFichier, char plateau[TAILLE_PLATEAU][TAIL
         return;
     }
 
-    // Sauvegarder les dimensions du plateau
+
     fprintf(fichier, "%d %d\n", TAILLE_PLATEAU, TAILLE_PLATEAU);
 
-    // Sauvegarder l'état du plateau
+
     for (int i = 0; i < TAILLE_PLATEAU; i++) {
         for (int j = 0; j < TAILLE_PLATEAU; j++) {
             fprintf(fichier, "%c", plateau[i][j]);
@@ -20,10 +20,10 @@ void sauvegarderPartie(const char *nomFichier, char plateau[TAILLE_PLATEAU][TAIL
         fprintf(fichier, "\n");
     }
 
-    // Sauvegarder le nombre de joueurs
+
     fprintf(fichier, "%d\n", nbJoueurs);
 
-    // Sauvegarder les informations des joueurs
+
     for (int i = 0; i < nbJoueurs; i++) {
         fprintf(fichier, "%s %c %d %d %d %d\n",
                 joueurs[i].nom,
@@ -34,7 +34,7 @@ void sauvegarderPartie(const char *nomFichier, char plateau[TAILLE_PLATEAU][TAIL
                 joueurs[i].estIA);
     }
 
-    // Sauvegarder le joueur actuel
+
     fprintf(fichier, "%d\n", joueurActuel);
 
     fclose(fichier);
@@ -48,21 +48,21 @@ int chargerPartie(const char *nomFichier, char plateau[TAILLE_PLATEAU][TAILLE_PL
         return 0;
     }
 
-    // Charger les dimensions du plateau (ignoré ici car TAILLE_PLATEAU est fixe)
+
     int lignes, colonnes;
     fscanf(fichier, "%d %d\n", &lignes, &colonnes);
 
-    // Charger l'état du plateau
+
     for (int i = 0; i < TAILLE_PLATEAU; i++) {
         for (int j = 0; j < TAILLE_PLATEAU; j++) {
             fscanf(fichier, " %c", &plateau[i][j]);
         }
     }
 
-    // Charger le nombre de joueurs
+
     fscanf(fichier, "%d\n", nbJoueurs);
 
-    // Charger les informations des joueurs
+
     for (int i = 0; i < *nbJoueurs; i++) {
         fscanf(fichier, "%s %c %d %d %d %d\n",
                joueurs[i].nom,
@@ -73,7 +73,7 @@ int chargerPartie(const char *nomFichier, char plateau[TAILLE_PLATEAU][TAILLE_PL
                &joueurs[i].estIA);
     }
 
-    // Charger le joueur actuel
+
     fscanf(fichier, "%d\n", joueurActuel);
 
     fclose(fichier);
