@@ -20,7 +20,7 @@ int main() {
         scanf("%d", &choixMenu);
 
         switch (choixMenu) {
-            case 1: // Nouvelle Partie
+            case 1: 
                 do {
                     printf("Nombre de joueurs (2 ou 4) : ");
                     scanf("%d", &nbJoueurs);
@@ -29,23 +29,23 @@ int main() {
                     }
                 } while (nbJoueurs != 2 && nbJoueurs != 4);
 
-                // Initialisation du plateau et des joueurs
+
                 initialiserPlateau(plateau);
                 initialiserJoueurs(joueurs, nbJoueurs);
                 placerJoueursSurPlateau(joueurs, nbJoueurs, plateau);
                 afficherInfosJoueurs(joueurs, nbJoueurs);
 
-                // Lancer le jeu
+
                 jeu(plateau, joueurs, nbJoueurs);
                 break;
 
-            case 2: // Afficher Aide
+            case 2: 
                 printf("\n--- Aide ---\n");
                 printf("Le jeu Quoridor est un jeu de strategie.\n");
                 printf("Deplacez votre pion ou placez des barrieres pour atteindre le bord oppose.\n");
                 break;
 
-            case 3: // Quitter
+            case 3: 
                 printf("Au revoir !\n");
                 return 0;
 
