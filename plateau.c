@@ -6,7 +6,7 @@
 void initialiserPlateau(char plateau[TAILLE_PLATEAU][TAILLE_PLATEAU]) {
     for (int i = 0; i < TAILLE_PLATEAU; i++) {
         for (int j = 0; j < TAILLE_PLATEAU; j++) {
-            plateau[i][j] = '.'; // Case vide
+            plateau[i][j] = '.'; 
         }
     }
 }
