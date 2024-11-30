@@ -1,15 +1,59 @@
-#include "game.h"
-#include "player.h"
-#include "menu.h"
-#include "display.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "structures.h"
+#include "plateau.h"
+#include "joueurs.h"
+#include "jeu.h"
+
+void afficherMenu();
 
 int main() {
-    Game game;
+    char plateau[TAILLE_PLATEAU][TAILLE_PLATEAU];
+    Joueur joueurs[NB_MAX_JOUEURS];
+    int choixMenu;
+    int nbJoueurs;
 
-    while (1) {
-        main_menu(&game);
-        start_game(&game);
-    }
+    do {
+        afficherMenu();
+        printf("Choisissez une option : ");
+        scanf("%d", &choixMenu);
+
+        switch (choixMenu) {
+            case 1: 
+                do {
+                    printf("Nombre de joueurs (2 ou 4) : ");
+                    scanf("%d", &nbJoueurs);
+                    if (nbJoueurs != 2 && nbJoueurs != 4) {
+                        printf("Erreur : Vous devez saisir 2 ou 4 joueurs.\n");
+                    }
+                } while (nbJoueurs != 2 && nbJoueurs != 4);
+
+
+                initialiserPlateau(plateau);
+                initialiserJoueurs(joueurs, nbJoueurs);
+                placerJoueursSurPlateau(joueurs, nbJoueurs, plateau);
+                afficherInfosJoueurs(joueurs, nbJoueurs);
+
+
+                jeu(plateau, joueurs, nbJoueurs);
+                break;
+
+            case 2: 
+                printf("\n--- Aide ---\n");
+                printf("Le jeu Quoridor est un jeu de strategie.\n");
+                printf("Deplacez votre pion ou placez des barrieres pour atteindre le bord oppose.\n");
+                break;
+
+            case 3: 
+                printf("Au revoir !\n");
+                return 0;
+
+            default:
+                printf("Option invalide. Essayez encore.\n");
+        }
+    } while (choixMenu != 3);
 
     return 0;
 }
+
