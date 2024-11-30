@@ -6,39 +6,39 @@
 int symboleEstUnique(char symbole, Joueur joueurs[], int nbJoueurs) {
     for (int i = 0; i < nbJoueurs; i++) {
         if (joueurs[i].symbole == symbole) {
-            return 0; // Symbole déjà utilisé
+            return 0; 
         }
     }
-    return 1; // Symbole est unique
+    return 1; 
 }
 
 void initialiserJoueurs(Joueur joueurs[], int nbJoueurs) {
     for (int i = 0; i < nbJoueurs; i++) {
         printf("\n--- Joueur %d ---\n", i + 1);
 
-        // Saisie du type de joueur (IA ou Humain)
-        int valide = 0; // Indique si la saisie est valide
+
+        int valide = 0; 
         while (!valide) {
             printf("Le joueur est-il une IA ? (1 = Oui, 0 = Non) : ");
             if (scanf("%d", &joueurs[i].estIA) == 1 && (joueurs[i].estIA == 0 || joueurs[i].estIA == 1)) {
-                valide = 1; // Saisie correcte
+                valide = 1; 
             } else {
                 printf("Erreur : Veuillez entrer 1 pour IA ou 0 pour Humain.\n");
-                while (getchar() != '\n'); // Vide le buffer
+                while (getchar() != '\n'); 
             }
         }
 
-        // Saisie du nom
+
         if (!joueurs[i].estIA) {
             do {
                 printf("Nom du joueur : ");
                 scanf("%s", joueurs[i].nom);
             } while (strlen(joueurs[i].nom) == 0);
         } else {
-            sprintf(joueurs[i].nom, "IA_%d", i + 1); // Nom automatique pour une IA
+            sprintf(joueurs[i].nom, "IA_%d", i + 1); 
         }
 
-        // Saisie d'un symbole unique
+
         do {
             printf("Symbole (@, #, $, &) : ");
             scanf(" %c", &joueurs[i].symbole);
@@ -49,11 +49,11 @@ void initialiserJoueurs(Joueur joueurs[], int nbJoueurs) {
             }
         } while (!strchr("@#$&", joueurs[i].symbole) || !symboleEstUnique(joueurs[i].symbole, joueurs, i));
 
-        // Position initiale
+
         joueurs[i].x = (i == 0) ? 0 : TAILLE_PLATEAU - 1;
         joueurs[i].y = TAILLE_PLATEAU / 2;
 
-        // Initialisation des barrières
+
         joueurs[i].nbBarrieres = (nbJoueurs == 2) ? NB_BARRIERES_2J : NB_BARRIERES_4J;
     }
 }
@@ -62,37 +62,39 @@ void initialiserJoueurs(Joueur joueurs[], int nbJoueurs) {
 
 
 int deplacerPion(Joueur *joueur, char direction, char plateau[TAILLE_PLATEAU][TAILLE_PLATEAU]) {
+
     int newX = joueur->x;
     int newY = joueur->y;
 
-    // Calcul de la nouvelle position
+
     switch (direction) {
-        case 'z': newX--; break; // Haut
-        case 's': newX++; break; // Bas
-        case 'q': newY--; break; // Gauche
-        case 'd': newY++; break; // Droite
+        case 'z': newX--; break; 
+        case 's': newX++; break; 
+        case 'q': newY--; break; 
+        case 'd': newY++; break; 
         default:
             printf("Erreur : Direction invalide. Utilisez z (haut), s (bas), q (gauche), d (droite).\n");
             return 0;
     }
 
-    // Vérification des limites du plateau
+
     if (newX < 0 || newX >= TAILLE_PLATEAU || newY < 0 || newY >= TAILLE_PLATEAU) {
-        printf("Erreur : Déplacement hors limites.\n");
+        printf("Erreur : Deplacement hors limites. Essayez encore.\n");
         return 0;
     }
 
-    // Vérification si la case est libre
+
     if (plateau[newX][newY] != '.') {
-        printf("Erreur : La case est occupée.\n");
+        printf("Erreur : La case (%d, %d) est occupee par '%c'.\n", newX, newY, plateau[newX][newY]);
         return 0;
     }
 
-    // Déplacement validé : mettre à jour la position
-    plateau[joueur->x][joueur->y] = '.'; // Efface l'ancienne position
-    joueur->x = newX;
-    joueur->y = newY;
-    plateau[newX][newY] = joueur->symbole; // Met à jour la nouvelle position
 
-    return 1;
+    printf("Deplacement de (%d, %d) à (%d, %d).\n", joueur->x, joueur->y, newX, newY);
+    plateau[joueur->x][joueur->y] = '.'; 
+    joueur->x = newX;                  
+    joueur->y = newY;                  
+    plateau[newX][newY] = joueur->symbole; 
+
+    return 1; 
 }
