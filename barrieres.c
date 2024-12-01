@@ -24,7 +24,7 @@ int placerBarriere(char plateau[TAILLE_PLATEAU][TAILLE_PLATEAU], char case1[], c
 
     // Convertir les cases en coordonnées
     if (!coordonneesDepuisCase(case1, &x1, &y1) || !coordonneesDepuisCase(case2, &x2, &y2)) {
-        printf("Erreur : Coordonnées invalides.\n");
+        printf("Erreur : Coordonnees invalides.\n");
         return 0;
     }
 
@@ -38,28 +38,28 @@ int placerBarriere(char plateau[TAILLE_PLATEAU][TAILLE_PLATEAU], char case1[], c
     position = toupper(position); // Convertir la position en majuscule
     if (position == 'H') { // Haut
         if (x1 == 0 || plateau[x1 - 1][y1] == 'B' || plateau[x2 - 1][y2] == 'B') {
-            printf("Erreur : Une barrière existe déjà.\n");
+            printf("Erreur : Une barriere existe déjà.\n");
             return 0;
         }
         plateau[x1 - 1][y1] = 'B';
         plateau[x2 - 1][y2] = 'B';
     } else if (position == 'B') { // Bas
         if (x1 >= TAILLE_PLATEAU - 1 || plateau[x1 + 1][y1] == 'B' || plateau[x2 + 1][y2] == 'B') {
-            printf("Erreur : Une barrière existe déjà.\n");
+            printf("Erreur : Une barriere existe déjà.\n");
             return 0;
         }
         plateau[x1 + 1][y1] = 'B';
         plateau[x2 + 1][y2] = 'B';
     } else if (position == 'G') { // Gauche
         if (y1 == 0 || plateau[x1][y1 - 1] == 'B' || plateau[x2][y2 - 1] == 'B') {
-            printf("Erreur : Une barrière existe déjà.\n");
+            printf("Erreur : Une barriere existe déjà.\n");
             return 0;
         }
         plateau[x1][y1 - 1] = 'B';
         plateau[x2][y2 - 1] = 'B';
     } else if (position == 'D') { // Droite
         if (y1 >= TAILLE_PLATEAU - 1 || plateau[x1][y1 + 1] == 'B' || plateau[x2][y2 + 1] == 'B') {
-            printf("Erreur : Une barrière existe déjà.\n");
+            printf("Erreur : Une barriere existe déjà.\n");
             return 0;
         }
         plateau[x1][y1 + 1] = 'B';
