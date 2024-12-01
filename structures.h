@@ -9,9 +9,11 @@
 
 typedef struct {
     char nom[50];
-    int x, y;          // Position du pion
-    char symbole;      // Symbole pour représenter le joueur
-    int nbBarrieres;// Nombre de barrières restantes
+    char symbole;
+    int x, y; // Position actuelle
+    int nbBarrieres;
+    char directionCible; // Direction de la cible ('H', 'B', 'G', 'D')
+    int ligneCible;      // Ligne ou colonne cible pour la victoire
     int estIA;
 } Joueur;
 
