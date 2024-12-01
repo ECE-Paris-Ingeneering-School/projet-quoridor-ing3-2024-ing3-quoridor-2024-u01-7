@@ -3,9 +3,11 @@
 
 #include "structures.h"
 
-void jeu(char plateau[TAILLE_PLATEAU][TAILLE_PLATEAU], Joueur joueurs[], int nbJoueurs);
+void jeu(char plateau[TAILLE_PLATEAU][TAILLE_PLATEAU], Joueur joueurs[], int nbJoueurs, int niveauIA);
 void nouvellePartie();
 void afficherTourActuel(Joueur joueur);
-int verifierVictoire(Joueur joueur, int taillePlateau);
+int verifierVictoire(Joueur joueur);
+void jouerTourHumain(Joueur *joueur, char plateau[TAILLE_PLATEAU][TAILLE_PLATEAU]);
+
 
 #endif
