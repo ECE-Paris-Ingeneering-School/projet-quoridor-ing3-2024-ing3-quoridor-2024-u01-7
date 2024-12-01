@@ -1,12 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "ia.h"
+#include "sauvegarde.h"
 #include "menu.h"
+#include "joueurs.h"
 
 #include "jeu.h"
 
-void afficherMenu() {
+void afficherMenu(int niveauIA) {
     int choix;
+    char plateau[TAILLE_PLATEAU][TAILLE_PLATEAU];
+    Joueur joueurs[NB_MAX_JOUEURS];
+    int nbJoueurs = 0, joueurActuel = 0;
+
     do {
         printf("\n--- Menu Principal ---\n");
         printf("1. Nouvelle Partie\n");
@@ -19,16 +25,18 @@ void afficherMenu() {
 
         switch (choix) {
             case 1:
-                nouvellePartie(); 
+                nouvellePartie(); // Appelle la nouvelle partie
                 break;
             case 2:
-                printf("Reprendre partie : fonctionnalité en cours de développement.\n");
+                if (chargerPartie("sauvegarde.txt", plateau, joueurs, &nbJoueurs, &joueurActuel)) {
+                    jeu(plateau, joueurs, nbJoueurs, niveauIA);
+                }
                 break;
             case 3:
                 afficherAide();
                 break;
             case 4:
-                printf("Sauvegarder partie : fonctionnalité en cours de développement.\n");
+                sauvegarderPartie("sauvegarde.txt", plateau, joueurs, nbJoueurs, joueurActuel);
                 break;
             case 5:
                 printf("Merci d'avoir joué ! À bientôt !\n");
