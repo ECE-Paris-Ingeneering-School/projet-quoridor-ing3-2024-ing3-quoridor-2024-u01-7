@@ -10,7 +10,7 @@ void sauvegarderPartie(const char *nomFichier, char plateau[TAILLE_PLATEAU][TAIL
         return;
     }
 
-    // Sauvegarder les dimensions du plateau (facultatif si fixe, mais inclut pour compatibilité future)
+    // Sauvegarder les dimensions du plateau
     fprintf(fichier, "%d %d\n", TAILLE_PLATEAU, TAILLE_PLATEAU);
 
     // Sauvegarder l'état du plateau
@@ -26,14 +26,15 @@ void sauvegarderPartie(const char *nomFichier, char plateau[TAILLE_PLATEAU][TAIL
 
     // Sauvegarder les informations des joueurs
     for (int i = 0; i < nbJoueurs; i++) {
-        fprintf(fichier, "%s %c %d %d %d %c %d\n",
-                joueurs[i].nom,           // Nom du joueur
-                joueurs[i].symbole,       // Symbole du joueur
-                joueurs[i].x,             // Position X
-                joueurs[i].y,             // Position Y
-                joueurs[i].nbBarrieres,   // Barrières restantes
+        fprintf(fichier, "%s %c %d %d %d %c %d %d\n",
+                joueurs[i].nom,            // Nom du joueur
+                joueurs[i].symbole,        // Symbole du joueur
+                joueurs[i].x,              // Position X
+                joueurs[i].y,              // Position Y
+                joueurs[i].nbBarrieres,    // Barrières restantes
                 joueurs[i].directionCible, // Direction cible (H, B, G, D)
-                joueurs[i].ligneCible);    // Ligne ou colonne cible
+                joueurs[i].ligneCible,     // Ligne ou colonne cible
+                joueurs[i].estIA);         // IA ou humain
     }
 
     // Sauvegarder le joueur actuel
@@ -43,7 +44,6 @@ void sauvegarderPartie(const char *nomFichier, char plateau[TAILLE_PLATEAU][TAIL
     fclose(fichier);
     printf("Partie sauvegardée avec succès dans le fichier '%s'.\n", nomFichier);
 }
-
 
 
 int chargerPartie(const char *nomFichier, char plateau[TAILLE_PLATEAU][TAILLE_PLATEAU], Joueur joueurs[], int *nbJoueurs, int *joueurActuel) {
@@ -70,33 +70,45 @@ int chargerPartie(const char *nomFichier, char plateau[TAILLE_PLATEAU][TAILLE_PL
     // Charger l'état du plateau
     for (int i = 0; i < TAILLE_PLATEAU; i++) {
         for (int j = 0; j < TAILLE_PLATEAU; j++) {
-            fscanf(fichier, " %c", &plateau[i][j]);
+            if (fscanf(fichier, " %c", &plateau[i][j]) != 1) {
+                printf("Erreur : Format incorrect pour l'état du plateau.\n");
+                fclose(fichier);
+                return 0;
+            }
         }
     }
 
     // Charger le nombre de joueurs
-    if (fscanf(fichier, "%d\n", nbJoueurs) != 1) {
-        printf("Erreur : Format incorrect pour le nombre de joueurs.\n");
+    if (fscanf(fichier, "%d\n", nbJoueurs) != 1 || *nbJoueurs < 2 || *nbJoueurs > 4) {
+        printf("Erreur : Nombre de joueurs invalide.\n");
         fclose(fichier);
         return 0;
     }
 
     // Charger les informations des joueurs
     for (int i = 0; i < *nbJoueurs; i++) {
-        if (fscanf(fichier, "%s %c %d %d %d %c %d\n",
-                   joueurs[i].nom,
-                   &joueurs[i].symbole,
-                   &joueurs[i].x,
-                   &joueurs[i].y,
-                   &joueurs[i].nbBarrieres,
-                   &joueurs[i].directionCible,
-                   &joueurs[i].ligneCible) != 7) {
+        if (fscanf(fichier, "%s %c %d %d %d %c %d %d\n",
+                   joueurs[i].nom,               // Nom
+                   &joueurs[i].symbole,          // Symbole
+                   &joueurs[i].x,                // Position X
+                   &joueurs[i].y,                // Position Y
+                   &joueurs[i].nbBarrieres,      // Barrières restantes
+                   &joueurs[i].directionCible,   // Direction cible
+                   &joueurs[i].ligneCible,       // Ligne cible
+                   &joueurs[i].estIA) != 8) {    // IA ou humain
             printf("Erreur : Format incorrect pour les informations des joueurs.\n");
             fclose(fichier);
             return 0;
         }
 
-        // Ajouter des vérifications après le chargement
+        // Vérifications des positions et des cibles
+        if (joueurs[i].x < 0 || joueurs[i].x >= TAILLE_PLATEAU ||
+            joueurs[i].y < 0 || joueurs[i].y >= TAILLE_PLATEAU) {
+            printf("Erreur : Position invalide pour le joueur %s (%c).\n", joueurs[i].nom, joueurs[i].symbole);
+            fclose(fichier);
+            return 0;
+        }
+
         if ((joueurs[i].directionCible == 'H' && joueurs[i].ligneCible != 0) ||
             (joueurs[i].directionCible == 'B' && joueurs[i].ligneCible != TAILLE_PLATEAU - 1) ||
             (joueurs[i].directionCible == 'G' && joueurs[i].ligneCible != 0) ||
@@ -108,15 +120,16 @@ int chargerPartie(const char *nomFichier, char plateau[TAILLE_PLATEAU][TAILLE_PL
     }
 
     // Charger le joueur actuel
-    if (fscanf(fichier, "%d\n", joueurActuel) != 1) {
-        printf("Erreur : Format incorrect pour le joueur actuel.\n");
+    if (fscanf(fichier, "%d\n", joueurActuel) != 1 || *joueurActuel < 0 || *joueurActuel >= *nbJoueurs) {
+        printf("Erreur : Joueur actuel invalide.\n");
         fclose(fichier);
         return 0;
     }
 
     fclose(fichier);
-    printf("Partie chargée depuis %s avec succès.\n", nomFichier);
+    printf("Partie chargée depuis '%s' avec succès.\n", nomFichier);
     return 1;
 }
+
 
 
